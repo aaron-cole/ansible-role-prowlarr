@@ -1,5 +1,5 @@
 ---
-# handlers file for radarr
+# handlers file for prowlarr
 - name: fapolicyd update
   shell: fapolicyd-cli --update
   changed_when: false
