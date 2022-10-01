@@ -1,0 +1,14 @@
+---
+# defaults file for prowlarr
+
+prowlarr_user: prowlarr
+# prowlarr_uid:
+prowlarr_group: media
+# prowlarr_group_gid:
+prowlarr_base_install_dir: /opt
+prowlarr_config_dir: /opt/data/prowlarr
+prowlarr_download_url: "https://prowlarr.servarr.com/v1/update/develop/updatefile?os=linux&runtime=netcore&arch=x64"
+prowlarr_port: 9696
+prowlarr_packages:
+  - curl
+  - sqlite

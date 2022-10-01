@@ -1,0 +1,39 @@
+---
+# tasks file for app configuration
+
+#Setup prowlarr
+- name: Download prowlarr tarball
+  get_url:
+    url:  "{{ prowlarr_download_url }}"
+    dest: /tmp
+  register: prowlarr_tarball
+
+# Untar
+- name: Extract prowlarr tarball
+  unarchive:
+    src: "{{ prowlarr_tarball['dest'] }}"
+    dest: "{{ prowlarr_base_install_dir }}"
+    owner: "{{ prowlarr_user }}"
+    group: "{{ prowlarr_group }}"
+    remote_src: yes
+
+- name: Set File perms on prowlarr dir
+  file:
+    path: "{{ prowlarr_base_install_dir }}/Prowlarr"
+    owner: "{{ prowlarr_user }}"
+    group: "{{ prowlarr_group }}"
+    recurse: yes
+
+# Ensure data dir exists
+- name: Create data directory
+  file:
+    path: "{{ prowlarr_config_dir }}"
+    owner: "{{ prowlarr_user }}"
+    group: "{{ prowlarr_group }}"
+    state: directory
+
+# Remove tarball from /tmp
+- name: Remove tarball from download
+  file:
+    path: "{{ prowlarr_tarball['dest'] }}"
+    state: absent

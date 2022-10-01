@@ -1,0 +1,24 @@
+---
+# user group tasks for prowlarr
+
+#User Group Creation
+- name: Create group for prowlarr if defined
+  group:
+    name: "{{ prowlarr_group }}"
+    gid: "{{ prowlarr_group_gid | default(omit) }}"
+    state: present
+    system: yes
+  when: prowlarr_group is defined
+
+# Create our user we will use
+- name: Create prowlarr user
+  user:
+    name: "{{ prowlarr_user }}"
+    state: present
+    shell: /sbin/nologin
+    group: "{{ prowlarr_group }}"
+    system: yes
+    home: "{{ prowlarr_base_install_dir }}/Prowlarr"
+    comment: "prowlarr service account"
+    uid: "{{ prowlarr_uid | default(omit) }}"
+    create_home: no

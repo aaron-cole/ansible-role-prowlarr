@@ -1,0 +1,12 @@
+---
+# tasks for fapolicyd configuration
+- name: Trust Prowlarr
+  shell: "fapolicyd-cli --file add {{ prowlarr_base_install_dir }}/Prowlarr --trust-file prowlarr"
+  changed_when: false
+  failed_when: false
+  notify: fapolicyd update
+  when: "'fapolicyd' in ansible_facts['packages']"
+
+# Gotta flush handlers to make sure fapolicyd gets updated
+- name: Flush handlers to make Sabnzbd work with fapolicy
+  meta: flush_handlers

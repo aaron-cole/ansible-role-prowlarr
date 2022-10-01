@@ -1,0 +1,16 @@
+---
+# tasks file for prowlarr configuration
+- name: Copy Systemd prowlarr template
+  template:
+    src: systemd_prowlarr.service.j2
+    dest: /etc/systemd/system/prowlarr.service
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Start radarr prowlarr
+  systemd:
+    state: started
+    enabled: yes
+    name: prowlarr.service
+    daemon_reload: yes
