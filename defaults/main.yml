@@ -12,3 +12,6 @@ prowlarr_port: 9696
 prowlarr_packages:
   - curl
   - sqlite
+  - libicu
+  - firewalld
+  - python3-firewall
